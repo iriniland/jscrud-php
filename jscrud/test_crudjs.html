@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script src="crud.js"></script>
+        <script>
+            var url_db = '../jscrud/crud.php';
+            //测试新增记录
+            db_create({table: 'test', data: {name: 'aaa', age:3, create_time: db_time()}}, function (data) {
+                    var ret = data.ret;
+                    var new_id = data.id;
+                    alert(ret + ' , ' + new_id);
+            });
+            
+            //测试修改记录
+            db_update({table:'test', condition:{name:'aaa'}, set:{age:10}}, function (data){
+                alert(data.ret);
+            })
+            
+            //测试删除记录
+            db_delete({table:'test', condition:{id:1}}, function (data){
+                alert(data.ret);
+            });
+            
+            //测试查找记录
+            db_find({table:'test', condition:{name:'aaa'}, orderby:{create_time:'desc', name:'asc'}}, function (data){
+                alert(data.length);
+            });
+        </script>
+    </body>
+</html>
